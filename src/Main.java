@@ -14,6 +14,8 @@ public class Main {
 
         for(int i = 0; i < 2000; i++) {
             students.add(new Male());
+        }
+        for(int i = 0; i < 2000; i++) {
             students.add(new Female());
         }
 
