@@ -18,6 +18,11 @@ public class Male implements Student {
         this.weight = random.nextGaussian()*WEIGHT_VAR+WEIGHT_MEAN;
     }
 
+    public Male(double height, double weight) {
+        this.height = height;
+        this.weight = weight;
+    }
+
     public double getHeight() {
         return height;
     }
