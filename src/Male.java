@@ -5,9 +5,16 @@ public class Male implements Student {
     // centimeters
     final static double HEIGHT_MEAN  = 180;
     final static double HEIGHT_VAR = 15;
+
+    // 180
+    // 15
+
     // kilograms
     final static double WEIGHT_MEAN = 80;
     final static double WEIGHT_VAR = 15;
+
+    // 80
+    // 15
 
     private double height;
     private double weight;
