@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Male implements Student {
+public class Male extends Student {
 
     // centimeters
     final static double HEIGHT_MEAN  = 180;
