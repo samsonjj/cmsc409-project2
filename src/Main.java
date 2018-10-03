@@ -76,8 +76,8 @@ public class Main {
 
         // Do the training
         for(int i = 0; i < ITERATIONS; i++) {
-            trainNewNeuron(hardNeuron, dataTrain, dataTest, false);
-            trainNewNeuron(softNeuron, dataTrain, dataTest, true);
+            trainNeuron(hardNeuron, dataTrain, dataTest, false);
+            trainNeuron(softNeuron, dataTrain, dataTest, true);
         }
 
         System.out.println("HARD ACTIVATION FUNCTION");
@@ -152,7 +152,7 @@ public class Main {
         return students;
     }
 
-    public static Neuron trainNewNeuron(Neuron neuron, ArrayList<Student> dataTrain, ArrayList<Student> dataTest, boolean useSoftActivationFunction) {
+    public static Neuron trainNeuron(Neuron neuron, ArrayList<Student> dataTrain, ArrayList<Student> dataTest, boolean useSoftActivationFunction) {
 
         // Train neuron
         for(int i = 0; i < dataTrain.size(); i++) {

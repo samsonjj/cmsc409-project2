@@ -61,6 +61,6 @@ public class Neuron {
             sum += weights[i] * inputs[i];
         }
         sum += bias;
-        return (Math.tanh(sum * SOFT_CONSTANT) + 1) / 2;
+        return 1.0 / (1 + (Math.exp(-1.0 * sum * SOFT_CONSTANT)));
     }
 }
