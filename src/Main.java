@@ -11,7 +11,7 @@ public class Main {
     final static int ITERATIONS = 1000;
     final static double PORTION_TO_TRAIN = .75;
 
-    final static double TRAINING_CONSTANT = .0001;
+    final static double TRAINING_CONSTANT = .00001;
 
     final static double SOFT_RANGE = 5;
 
@@ -23,7 +23,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        
+
         ArrayList<Student> students = null;
 
         // Read from file or generate new data
@@ -60,9 +60,25 @@ public class Main {
 
 
 
+        // Make two neurons to train using hard and soft respectively
+        Neuron hardNeuron = new Neuron(2);
+        hardNeuron.setWeight(0, WEIGHT0);
+        hardNeuron.setWeight(1, WEIGHT1);
+        hardNeuron.setBias(BIAS);
+
+        Neuron softNeuron = new Neuron(2);
+        softNeuron.setWeight(0, WEIGHT0);
+        softNeuron.setWeight(1, WEIGHT1);
+        softNeuron.setBias(BIAS);
+
+
+
+
         // Do the training
-        Neuron hardNeuron = trainNewNeuron(dataTrain, dataTest, false);
-        Neuron softNeuron = trainNewNeuron(dataTrain, dataTest, true);
+        for(int i = 0; i < ITERATIONS; i++) {
+            trainNewNeuron(hardNeuron, dataTrain, dataTest, false);
+            trainNewNeuron(softNeuron, dataTrain, dataTest, true);
+        }
 
         System.out.println("HARD ACTIVATION FUNCTION");
         System.out.printf("w1 = %5.5f\n", hardNeuron.getWeight(0));
@@ -136,17 +152,16 @@ public class Main {
         return students;
     }
 
-    public static Neuron trainNewNeuron(ArrayList<Student> dataTrain, ArrayList<Student> dataTest, boolean useSoftActivationFunction) {
-
-        Neuron neuron = new Neuron(2);
-        neuron.setWeight(0, WEIGHT0);
-        neuron.setWeight(1, WEIGHT1);
-        neuron.setBias(BIAS);
+    public static Neuron trainNewNeuron(Neuron neuron, ArrayList<Student> dataTrain, ArrayList<Student> dataTest, boolean useSoftActivationFunction) {
 
         // Train neuron
-        for(int i = 0; i < ITERATIONS; i++) {
+        for(int i = 0; i < dataTrain.size(); i++) {
 
-            Student inputStudent = dataTrain.get(i % dataTrain.size());
+            if(testAgainstTotalError(neuron, dataTrain, useSoftActivationFunction)) {
+                System.out.println("training quit early after " + i + " iterations, after reaching minimal error.");
+            }
+
+            Student inputStudent = dataTrain.get(i);
 
             double output = useSoftActivationFunction ? neuron.executeSoft(inputStudent.getHeight(), inputStudent.getWeight())
                     : neuron.executeHard(inputStudent.getHeight(), inputStudent.getWeight());
@@ -159,10 +174,6 @@ public class Main {
             neuron.setWeight(0, neuron.getWeight(0) + delta0);
             neuron.setWeight(1, neuron.getWeight(1) + delta1);
             neuron.setBias(neuron.getBias() + deltaBias);
-
-            if(testAgainstTotalError(neuron, dataTrain, useSoftActivationFunction)) {
-                System.out.println("training quit early after " + i + " iterations, after reaching minimal error.");
-            }
         }
 
         return neuron;
