@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 public class Main {
 
+    final static Random random = new Random();
+
     final static int ITERATIONS = 1000;
     final static double PORTION_TO_TRAIN = .75;
 
@@ -15,9 +17,12 @@ public class Main {
 
     final static double SOFT_RANGE = 5;
 
-    final static double WEIGHT0 = 1;
-    final static double WEIGHT1 = 1;
+    final static double WEIGHT0 = random.nextDouble();
+    final static double WEIGHT1 = random.nextDouble();
     final static double BIAS = -200;
+    //final static double WEIGHT0 = 1;
+    //final static double WEIGHT1 = 1;
+    //final static double BIAS = -200;
 
     final static String DATA_FILE = "data.txt";
 
